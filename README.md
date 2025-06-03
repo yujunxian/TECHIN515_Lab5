@@ -9,3 +9,16 @@ This lab builds on Lab 4's gesture classification system and introduces an edge-
 - Built local Flask web server to mimic cloud behavior  
 - Implemented confidence-based offloading in ESP32 sketch  
 - Documented both local and cloud inference with screenshots  
+
+## Offloading Logic
+In the ESP32 sketch, we use a confidence threshold to decide whether to classify locally or send data to the server.
+
+```cpp
+#define CONFIDENCE_THRESHOLD 80.0
+
+if (confidence < CONFIDENCE_THRESHOLD) {
+    Serial.println("Low confidence - sending raw data to server...");
+    sendRawDataToServer();
+} else {
+    // Local inference result used to control LED
+}
